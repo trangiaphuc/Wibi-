@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="10dp"
+    android:background="@color/white">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblUserFullName"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/lblMe"
+        android:textSize="24dp"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/userAvatar"
+        android:layout_toEndOf="@+id/userAvatar"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/status"
+        android:visibility="gone"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/lblUserFullName"
+        android:layout_toRightOf="@+id/userAvatar"
+        android:layout_toEndOf="@+id/userAvatar"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/txtLastMes"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_below="@id/lblUserFullName"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/userAvatar"
+        android:layout_toRightOf="@+id/userAvatar"
+        android:maxWidth="200dp"
+        android:text="dasdjashkdjasdsakdhaksdhjaskhdkhhjgjhgjhjghjhgjghghjgjgjjhgjhjg"
+        android:textSize="20dp"
+        android:layout_marginTop="-10dp"
+        android:visibility="invisible"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/isSeen"
+        android:layout_toRightOf="@id/txtLastMes"
+        android:layout_toEndOf="@id/txtLastMes"
+        android:layout_below="@id/lblUserFullName"
+        android:layout_marginLeft="50dp" />
+
+</RelativeLayout>

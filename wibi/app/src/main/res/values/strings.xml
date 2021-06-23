@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Wibi!</string>
+    <string name="lablelCreateAccount">Create your Account</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="labelLogIn">Log In</string>
+    <string name="button_signin">Sign In</string>
+    <string name="labelSignIn">SignIn</string>
+    <string name="wibi">Wibi!!</string>
+    <string name="chat">Chats</string>
+    <string name="lblMe">Me</string>
+    <string name="lblProfile">Profile</string>
+    <string name="lblSignOut">Sign Out</string>
+    <string name="lblMesReq">Message Request</string>
+    <string name="EnterYourMessage">Enter Your Message</string>
+    <string name="lblUpdateProfile">Update Your Profile</string>
+    <string name="lblAddress">Address</string>
+    <string name="lblHometown">Hometown</string>
+    <string name="lblUsedLive">Where i used to live</string>
+    <string name="lblbasicInfor">basic information</string>
+    <string name="lbldob">Date of Birth</string>
+    <string name="lblSex">Sex</string>
+    <string name="lblrelationship">Relationship</string>
+    <string name="lblEdu">Education</string>
+    <string name="lblPrimarySchool">Primary School</string>
+    <string name="lblSecond">Secondary School</string>
+    <string name="lblHigh">High School</string>
+    <string name="lblCollege">College</string>
+    <string name="lblUniversity">University</string>
+    <string name="lblMessage">Message</string>
+    <string name="lblAddFriend">Add Friend</string>
+    <string name="lblPlaceLived">Places Lived</string>
+    <string name="lblWork">Work</string>
+    <string name="lblSeeYourProfile">See Your Profile</string>
+</resources>

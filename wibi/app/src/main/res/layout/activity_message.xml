@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Message.MessageActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:background="@drawable/card_border">
+
+        <ImageView
+            android:id="@+id/btnreturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/return_arrow"
+            android:layout_margin="15dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/btnreturn"
+            android:layout_toEndOf="@id/btnreturn" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblUserFullName"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/lblMe"
+            android:textSize="24dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/userAvatar"
+            android:layout_toEndOf="@id/userAvatar"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/statusMes"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/lblUserFullName"
+            android:layout_toRightOf="@+id/userAvatar"
+            android:layout_toEndOf="@+id/userAvatar"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rcvMessage"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/viewSendMessage"/>
+
+    <RelativeLayout
+        android:id="@+id/viewSendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/textSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/EnterYourMessage"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_toLeftOf="@+id/btnSend"
+            android:layout_toRightOf="@id/btnS"/>
+
+
+        <ImageView
+            android:background="@drawable/send"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/btnSend"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:background="@drawable/add"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/btnS"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+</RelativeLayout>

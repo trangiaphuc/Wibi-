@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00FF48</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="purple_700">#DA00FF</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#999999</color>
+    <color name="chat_item_left">#cccccc</color>
+    <color name="chat_item_right">#0AFF78</color>
+</resources>

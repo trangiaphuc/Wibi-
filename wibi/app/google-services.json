@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "149638545583",
+    "firebase_url": "https://myapps-add27-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "myapps-add27",
+    "storage_bucket": "myapps-add27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149638545583:android:c6bd74add79dd0b216945a",
+        "android_client_info": {
+          "package_name": "com.example.wibi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149638545583-a2i5shvioretmulu59dh9o9l754n84fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLnwPfiZRmp4pGj5OtEVNJRfIpihQkeJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149638545583-a2i5shvioretmulu59dh9o9l754n84fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
