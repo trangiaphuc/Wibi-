@@ -83,13 +83,17 @@ public class UserChattedAdapter extends RecyclerView.Adapter<UserChattedAdapter.
 
 
         holder.txtLastMess.setText(lastMessage.getMessage());
+        holder.txtTimeSend.setText(lastMessage.getDateSend());
         holder.txtLastMess.setVisibility(View.VISIBLE);
+        holder.txtTimeSend.setVisibility(View.VISIBLE);
         if (lastMessage.getIsSeen().equals("true")){
             holder.txtLastMess.setTextColor(Color.rgb(153,153,153));
+            holder.txtTimeSend.setTextColor(Color.rgb(153,153,153));
             holder.isSeen.setBackground(context.getDrawable(R.drawable.is_seen));
         }
-        else
-        {holder.txtLastMess.setTextColor(Color.rgb(0,0,0) );
+        else {
+            holder.txtLastMess.setTextColor(Color.rgb(0,0,0) );
+            holder.txtTimeSend.setTextColor(Color.rgb(0,0,0) );
             holder.isSeen.setBackground(context.getDrawable(R.drawable.is_not_seen));}
 
 
@@ -104,7 +108,7 @@ public class UserChattedAdapter extends RecyclerView.Adapter<UserChattedAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public CircleImageView avatar, status, isSeen;
-        public TextView lblUserFullName, txtLastMess;
+        public TextView lblUserFullName, txtLastMess, txtTimeSend;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -114,6 +118,7 @@ public class UserChattedAdapter extends RecyclerView.Adapter<UserChattedAdapter.
             status = itemView.findViewById(R.id.status);
             isSeen = itemView.findViewById(R.id.isSeen);
             txtLastMess = itemView.findViewById(R.id.txtLastMes);
+            txtTimeSend = itemView.findViewById(R.id.txtTimeSend);
         }
     }
 }

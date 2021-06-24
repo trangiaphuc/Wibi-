@@ -120,13 +120,16 @@ public class MessageActivity extends AppCompatActivity {
                 String receiver = receiverUserID;
                 String message = textSend.getText().toString().trim();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                SimpleDateFormat formatterHour = new SimpleDateFormat("HH:mm:ss");
                 Date date = new Date();
                 String dateSend = new String();
                 dateSend = formatter.format(date);
+                String timeSend = new String();
+                timeSend = formatterHour.format(date);
                 if (message.equals(""))
                     return;
                 else
-                {doSendMessage(sender, receiver, message, dateSend);}
+                {doSendMessage(sender, receiver, message, dateSend, timeSend);}
 
                 textSend.setText("");
             }
@@ -265,7 +268,7 @@ public class MessageActivity extends AppCompatActivity {
         finish();
     }
 
-    private void doSendMessage(String sender, String receiver, String message, String dateSend) {
+    private void doSendMessage(String sender, String receiver, String message, String dateSend, String timeSend) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
@@ -307,7 +310,7 @@ public class MessageActivity extends AppCompatActivity {
                     hashMapLastMes.put("chatWith", receiver);
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
-                    hashMapLastMes.put("dateSend", dateSend);
+                    hashMapLastMes.put("dateSend", timeSend);
                     hashMapLastMes.put("isSeen", "false");
 
                     lastMessageRef.setValue(hashMapLastMes);
@@ -318,7 +321,7 @@ public class MessageActivity extends AppCompatActivity {
                     hashMapLastMes.put("chatWith", receiver);
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
-                    hashMapLastMes.put("dateSend", dateSend);
+                    hashMapLastMes.put("dateSend", timeSend);
                     hashMapLastMes.put("isSeen", "false");
 
                     lastMessageRef.updateChildren(hashMapLastMes);

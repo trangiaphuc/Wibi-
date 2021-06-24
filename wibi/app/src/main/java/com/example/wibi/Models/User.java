@@ -2,7 +2,7 @@ package com.example.wibi.Models;
 
 public class User {
     private String id, imgURL, backgroundURL, fullname, gender, job_office, hometown, address,
-            primary_school, secondary_school, high_school, college, university, marriage, dob, status;
+            primary_school, secondary_school, high_school, college, university, marriage, dob, status, phone, mail;
 
     public User(){ }
 
@@ -11,7 +11,7 @@ public class User {
                 String hometown, String address,
                 String primary_school, String secondary_school, String high_school,
                 String college, String university,
-                String marriage, String dob, String status) {
+                String marriage, String dob, String status, String phone, String mail) {
         this.id = id;
         this.imgURL = imgURL;
         this.backgroundURL = backgroundURL;
@@ -28,6 +28,8 @@ public class User {
         this.marriage = marriage;
         this.dob = dob;
         this.status = status;
+        this.phone = phone;
+        this.mail = mail;
     }
 
     public String getId() {
@@ -178,5 +180,21 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }

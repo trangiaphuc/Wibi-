@@ -121,6 +121,8 @@ public class SignUpActivity extends AppCompatActivity {
                             hashMap.put("university", "null");
                             hashMap.put("marriage", "null");
                             hashMap.put("backgroundURL", "default");
+                            hashMap.put("phone", "null");
+                            hashMap.put("mail", email);
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<Void> task) {

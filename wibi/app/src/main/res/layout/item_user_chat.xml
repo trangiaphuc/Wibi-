@@ -48,13 +48,30 @@
         android:textSize="20dp"
         android:layout_marginTop="-10dp"
         android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:textSize="20dp"
+        android:id="@+id/txtTimeSend"
+        android:layout_toLeftOf="@+id/txtLastMes"
+        android:layout_toEndOf="@id/txtLastMes"
+        android:text="00:00"
+        android:textColor="@color/black"
+        android:layout_below="@+id/lblUserFullName"
+        android:layout_marginTop="-10dp"
+        android:layout_marginLeft="10dp"
+        android:maxWidth="65dp"
+        android:visibility="invisible"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:id="@+id/isSeen"
-        android:layout_toRightOf="@id/txtLastMes"
-        android:layout_toEndOf="@id/txtLastMes"
+        android:layout_toRightOf="@id/userAvatar"
+        android:layout_toEndOf="@id/userAvatar"
         android:layout_below="@id/lblUserFullName"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="-20dp"/>
 
 </RelativeLayout>

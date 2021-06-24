@@ -52,11 +52,11 @@ public class UserProfileActivity extends AppCompatActivity {
     private ImageView btnReturn, backgroundIMG, btnEditBackgroundIMG,
             avatar, btnEditAvatar ;
     private TextView lblTitleuserName, lblUsername, txtHometown, txtAddress, txtDOB, txtSex,
-            txtWork, txtRelationShip, txtPrimary, txtSecondary, txtHigh, txtCollege, txtUniversity;
+            txtWork, txtRelationShip, txtPrimary, txtSecondary, txtHigh, txtCollege, txtUniversity, txtMobile, txtEmail;
     private LinearLayout btnMessage, btnAddFriend, cardInteraction, cardHomeTown,
             cardAddress, cardWork, cardPrimary, cardSecondary, cardHigh, cardCollege, cardUniversity ;
     private Button btnUpdateProfile;
-    private RelativeLayout cardDOB, cardSex, cardRelationShip;
+    private RelativeLayout cardDOB, cardSex, cardRelationShip, cardMobile, cardEmail;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST =1;
@@ -91,6 +91,8 @@ public class UserProfileActivity extends AppCompatActivity {
         txtHigh = findViewById(R.id.txtHighSchool);
         txtCollege = findViewById(R.id.txtCollege);
         txtUniversity = findViewById(R.id.txtUniversity);
+        txtMobile = findViewById(R.id.txtMobile);
+        txtEmail = findViewById(R.id.txtMail);
         btnMessage = findViewById(R.id.btnMessage);
         btnAddFriend = findViewById(R.id.btnAddFriend);
         btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
@@ -106,7 +108,8 @@ public class UserProfileActivity extends AppCompatActivity {
         cardHigh = findViewById(R.id.cardHigh);
         cardCollege = findViewById(R.id.cardCollege);
         cardUniversity = findViewById(R.id.cardUniversity);
-
+        cardMobile = findViewById(R.id.cardMobile);
+        cardEmail = findViewById(R.id.cardMail);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         storageReference = FirebaseStorage.getInstance().getReference("upload");
@@ -250,6 +253,20 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
                 else {
                     txtUniversity.setText(user.getUniversity());
+                }
+
+                if(user.getPhone().equals("null")){
+                    cardMobile.setVisibility(View.GONE);
+                }
+                else {
+                    txtMobile.setText(user.getPhone());
+                }
+
+                if (user.getMail().equals("null")){
+                    cardEmail.setVisibility(View.GONE);
+                }
+                else {
+                    txtEmail.setText(user.getMail());
                 }
 
 

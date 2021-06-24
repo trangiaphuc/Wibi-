@@ -31,4 +31,17 @@
     <string name="lblPlaceLived">Places Lived</string>
     <string name="lblWork">Work</string>
     <string name="lblSeeYourProfile">See Your Profile</string>
+    <string name="lblContactInfor">Contact Information</string>
+    <string name="lblPhone">Mobile</string>
+    <string name="lblMail">Email</string>
+    <string name="Mobile">Mobile</string>
+    <string name="Email">Email</string>
+    <string name="lblEdiProfile">Edit Your Profile</string>
+    <string name="lblSaveYourChange">Save Your Change</string>
+    <string-array name="spn_Gender">
+        <item>Sex</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>
