@@ -38,10 +38,16 @@
     <string name="Email">Email</string>
     <string name="lblEdiProfile">Edit Your Profile</string>
     <string name="lblSaveYourChange">Save Your Change</string>
+    <string name="lblFriend">Friend</string>
     <string-array name="spn_Gender">
         <item>Sex</item>
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lblSearch">Search</string>
+    <string name="User">User</string>
+    <string name="lblFindFriend">Find Friends</string>
 </resources>

@@ -19,7 +19,7 @@ import com.example.wibi.Models.Chats;
 import com.example.wibi.Models.LastMessage;
 import com.example.wibi.Models.User;
 import com.example.wibi.R;
-import com.example.wibi.UserInformation.UserProfileActivity;
+import com.example.wibi.UserInteraction.UserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -120,7 +120,7 @@ public class MessageActivity extends AppCompatActivity {
                 String receiver = receiverUserID;
                 String message = textSend.getText().toString().trim();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                SimpleDateFormat formatterHour = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat formatterHour = new SimpleDateFormat("HH:mm");
                 Date date = new Date();
                 String dateSend = new String();
                 dateSend = formatter.format(date);
@@ -307,22 +307,26 @@ public class MessageActivity extends AppCompatActivity {
                 if (!snapshot.exists()){
                     HashMap<String,Object> hashMapLastMes = new HashMap<>();
 
+                    hashMapLastMes.put("id", firebaseUser.getUid());
                     hashMapLastMes.put("chatWith", receiver);
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", timeSend);
                     hashMapLastMes.put("isSeen", "false");
+                    hashMapLastMes.put("count", "new");
 
                     lastMessageRef.setValue(hashMapLastMes);
                 }
                 else if(snapshot.exists()){
                     HashMap<String,Object> hashMapLastMes = new HashMap<>();
 
+                    hashMapLastMes.put("id", firebaseUser.getUid());
                     hashMapLastMes.put("chatWith", receiver);
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", timeSend);
                     hashMapLastMes.put("isSeen", "false");
+                    hashMapLastMes.put("count", "old");
 
                     lastMessageRef.updateChildren(hashMapLastMes);
                 }

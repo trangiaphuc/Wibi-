@@ -18,4 +18,8 @@ public class ChatList {
     public void setId(String id) {
         this.id = id;
     }
+
+    public static void test(){
+        System.out.println("test OK");
+    }
 }

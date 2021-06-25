@@ -1,4 +1,4 @@
-package com.example.wibi.UserInformation;
+package com.example.wibi.UserInteraction;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.wibi.ChatActivity;
 import com.example.wibi.Message.MessageActivity;
+import com.example.wibi.Models.FriendList;
 import com.example.wibi.Models.User;
 import com.example.wibi.R;
 import com.google.android.gms.tasks.Continuation;
@@ -40,7 +41,9 @@ import com.google.firebase.storage.StorageTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -54,7 +57,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView lblTitleuserName, lblUsername, txtHometown, txtAddress, txtDOB, txtSex,
             txtWork, txtRelationShip, txtPrimary, txtSecondary, txtHigh, txtCollege, txtUniversity, txtMobile, txtEmail;
     private LinearLayout btnMessage, btnAddFriend, cardInteraction, cardHomeTown,
-            cardAddress, cardWork, cardPrimary, cardSecondary, cardHigh, cardCollege, cardUniversity ;
+            cardAddress, cardWork, cardPrimary, cardSecondary, cardHigh, cardCollege, cardUniversity, isFriend ;
     private Button btnUpdateProfile;
     private RelativeLayout cardDOB, cardSex, cardRelationShip, cardMobile, cardEmail;
 
@@ -110,6 +113,8 @@ public class UserProfileActivity extends AppCompatActivity {
         cardUniversity = findViewById(R.id.cardUniversity);
         cardMobile = findViewById(R.id.cardMobile);
         cardEmail = findViewById(R.id.cardMail);
+        isFriend = findViewById(R.id.isFriend);
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         storageReference = FirebaseStorage.getInstance().getReference("upload");
@@ -131,6 +136,7 @@ public class UserProfileActivity extends AppCompatActivity {
             btnUpdateProfile.setVisibility(View.GONE);
             btnEditAvatar.setVisibility(View.GONE);
             btnEditBackgroundIMG.setVisibility(View.GONE);
+            checkIsFriend(receiveID);
         }
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(receiveID);
@@ -321,12 +327,58 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        btnAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Interaction.addFriend(firebaseUser.getUid(), receiveID);
+            }
+        });
+
         checkConnect();
 
     }
 
+    private void checkIsFriend(String receiveID) {
+
+        List<FriendList> friendLists = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("FriendList").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    FriendList friendList = dataSnapshot.getValue(FriendList.class);
+                    friendLists.add(friendList);
+                }
+
+                if (checkExist(receiveID, friendLists))
+                {
+                    btnAddFriend.setVisibility(View.GONE);
+                    isFriend.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    private boolean checkExist(String str, List<FriendList> friendLists){
+        for (FriendList friendList: friendLists){
+            if (friendList.getId().trim().equals(str.trim()))
+                return true;
+        }
+        return false;
+    }
+
+
     private void doUpdateProfile() {
-        Intent intent = new Intent(UserProfileActivity.this, UserUpdateProfile.class);
+        Intent intent = new Intent(UserProfileActivity.this, UserUpdateProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         overridePendingTransition(0,0);
         startActivity(intent);

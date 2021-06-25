@@ -14,11 +14,12 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wibi">
-        <activity android:name=".UserInformation.UserUpdateProfile"></activity>
-        <activity android:name=".UserInformation.UserProfileActivity" />
+        <activity android:name=".FriendandUser.FriendandUserActivity"></activity>
+        <activity android:name=".UserInteraction.UserUpdateProfileActivity" />
+        <activity android:name=".UserInteraction.UserProfileActivity" />
         <activity android:name=".Message.MessageActivity" />
         <activity android:name=".Message.MessageRequestActivity" />
-        <activity android:name=".UserInformation.UserInteractionActivity" />
+        <activity android:name=".UserInteraction.UserInteractionActivity" />
         <activity android:name=".Start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +34,10 @@
             android:name=".SignIn.SignInActivity"
             android:parentActivityName=".Start.StartActivity" />
         <activity android:name=".ChatActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

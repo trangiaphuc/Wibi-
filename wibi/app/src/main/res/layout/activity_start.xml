@@ -12,9 +12,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/wibi"
+        android:fontFamily="serif-monospace"
         android:gravity="center"
-       android:textSize="60dp"/>
+        android:text="@string/wibi"
+        android:textColor="@color/colorPrimary"
+        android:textSize="60dp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:layout_width="match_parent"

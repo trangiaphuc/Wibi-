@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity"
-    android:orientation="vertical"
-    android:background="@color/white">
-    
+    tools:context=".FriendandUser.FriendandUserActivity"
+    android:orientation="vertical">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,38 +16,43 @@
         android:id="@+id/infotab"
         android:gravity="center|left"
         android:background="@drawable/card_border">
-        
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/profile_image"
-            android:layout_margin="10dp"/>
+
+        <ImageView
+            android:id="@+id/btnReturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/return_arrow"
+            android:layout_margin="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chat"
+            android:text="@string/lblFriend"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center"
             android:layout_marginLeft="30dp"
             android:textSize="24dp"
             android:textStyle="bold"/>
-
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        <androidx.recyclerview.widget.RecyclerView
+        android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rcvOnline" />
-    </androidx.cardview.widget.CardView>
+            android:id="@+id/tabLayout"
+            android:background="@color/white"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/gray"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rcvChats"/>
+        android:id="@+id/viewPager"
+        app:layout_behavior = "@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>

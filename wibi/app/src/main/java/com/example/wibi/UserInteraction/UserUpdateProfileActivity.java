@@ -1,4 +1,4 @@
-package com.example.wibi.UserInformation;
+package com.example.wibi.UserInteraction;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -45,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class UserUpdateProfile extends AppCompatActivity {
+public class UserUpdateProfileActivity extends AppCompatActivity {
     final static int TARGET_IMAGE_AVATAR = 0;
     final static int TARGET_IMAGE_BACKGROUND = 1;
 
@@ -167,14 +167,14 @@ public class UserUpdateProfile extends AppCompatActivity {
     }
 
     private String getFileExtension(Uri uri){
-        ContentResolver contentResolver = UserUpdateProfile.this.getContentResolver();
+        ContentResolver contentResolver = UserUpdateProfileActivity.this.getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     private void uploadImage()
     {
-        final ProgressDialog pd = new ProgressDialog(UserUpdateProfile.this);
+        final ProgressDialog pd = new ProgressDialog(UserUpdateProfileActivity.this);
         pd.setMessage("Uploading");
         pd.show();
 
@@ -208,20 +208,20 @@ public class UserUpdateProfile extends AppCompatActivity {
                         pd.dismiss();
                     }
                     else {
-                        Toast.makeText(UserUpdateProfile.this, "Failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UserUpdateProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
                         pd.dismiss();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(UserUpdateProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserUpdateProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     pd.dismiss();
                 }
             });
         }
         else {
-            Toast.makeText(UserUpdateProfile.this, "No image selected", Toast.LENGTH_LONG).show();
+            Toast.makeText(UserUpdateProfileActivity.this, "No image selected", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -234,7 +234,7 @@ public class UserUpdateProfile extends AppCompatActivity {
             imageUri = data.getData();
             if(uploadTask != null && uploadTask.isInProgress()){
 
-                Toast.makeText(UserUpdateProfile.this, "Upload in progress", Toast.LENGTH_LONG).show();
+                Toast.makeText(UserUpdateProfileActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
 
             }
             else {
@@ -246,7 +246,7 @@ public class UserUpdateProfile extends AppCompatActivity {
     //End Update Image Zone
 
     private void doReturn() {
-        Intent intent = new Intent(UserUpdateProfile.this, UserProfileActivity.class);
+        Intent intent = new Intent(UserUpdateProfileActivity.this, UserProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra("id", firebaseUser.getUid());
         startActivity(intent);
@@ -388,7 +388,7 @@ public class UserUpdateProfile extends AppCompatActivity {
         final int day = cal.get(Calendar.DAY_OF_MONTH);
         //Initialize Date Picker Dialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-               UserUpdateProfile.this,
+               UserUpdateProfileActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -404,7 +404,7 @@ public class UserUpdateProfile extends AppCompatActivity {
 
     private void initSpinnerGender() {
         //create adapter and set value for spnReceiver
-        ArrayAdapter<CharSequence> adapterCl = ArrayAdapter.createFromResource(UserUpdateProfile.this,R.array.spn_Gender, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterCl = ArrayAdapter.createFromResource(UserUpdateProfileActivity.this,R.array.spn_Gender, android.R.layout.simple_spinner_item);
         adapterCl.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         txtSex.setAdapter(adapterCl);
     }
@@ -426,8 +426,8 @@ public class UserUpdateProfile extends AppCompatActivity {
                         else
                         {
                             //load avatar
-                            if(!UserUpdateProfile.this.isDestroyed())
-                                Glide.with(UserUpdateProfile.this).load(user.getImgURL()).into(avatar);
+                            if(!UserUpdateProfileActivity.this.isDestroyed())
+                                Glide.with(UserUpdateProfileActivity.this).load(user.getImgURL()).into(avatar);
                         }
 
 
@@ -438,8 +438,8 @@ public class UserUpdateProfile extends AppCompatActivity {
                         else
                         {
                             //load background
-                            if(!UserUpdateProfile.this.isDestroyed())
-                                Glide.with(UserUpdateProfile.this).load(user.getBackgroundURL()).into(backgroundIMG);
+                            if(!UserUpdateProfileActivity.this.isDestroyed())
+                                Glide.with(UserUpdateProfileActivity.this).load(user.getBackgroundURL()).into(backgroundIMG);
                         }
 
                         lblUsername.setHint(user.getFullname());
@@ -509,7 +509,7 @@ public class UserUpdateProfile extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(UserUpdateProfile.this, UserProfileActivity.class);
+        Intent intent = new Intent(UserUpdateProfileActivity.this, UserProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         overridePendingTransition(0,0);
         startActivity(intent);

@@ -1,4 +1,4 @@
-package com.example.wibi.UserInformation;
+package com.example.wibi.UserInteraction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.wibi.ChatActivity;
+import com.example.wibi.FriendandUser.FriendandUserActivity;
 import com.example.wibi.Message.MessageRequestActivity;
 import com.example.wibi.Models.User;
 import com.example.wibi.R;
@@ -32,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInteractionActivity extends AppCompatActivity {
 
-    LinearLayout btnProfile, btnSignOut, btnMesReq;
+    LinearLayout btnProfile, btnSignOut, btnMesReq, infoTab, btnFindFriend;
 
     ImageView btnReturn;
 
@@ -51,9 +52,11 @@ public class UserInteractionActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.avatar);
         btnSignOut = findViewById(R.id.btnSignOut);
         btnReturn = findViewById(R.id.btnreturn);
+        btnFindFriend = findViewById(R.id.btnFriend);
         btnMesReq = findViewById(R.id.btnMessRequest);
         lblUserFullname = findViewById(R.id.lblName);
         avatar = findViewById(R.id.avatarUser);
+        infoTab = findViewById(R.id.infotab);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -83,10 +86,17 @@ public class UserInteractionActivity extends AppCompatActivity {
             }
         });
 
-        avatar.setOnClickListener(new View.OnClickListener() {
+        infoTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doRedirecttoProfile();
+            }
+        });
+
+        btnFindFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doFindFriend();
             }
         });
         checkConnect();
@@ -103,7 +113,19 @@ public class UserInteractionActivity extends AppCompatActivity {
     }
 
     private void doMesReqview() {
+
+        //
         Intent intent = new Intent(UserInteractionActivity.this, MessageRequestActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
+
+    private void doFindFriend() {
+
+        //
+        Intent intent = new Intent(UserInteractionActivity.this, FriendandUserActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

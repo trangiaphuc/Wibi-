@@ -71,7 +71,7 @@
         android:layout_toRightOf="@id/userAvatar"
         android:layout_toEndOf="@id/userAvatar"
         android:layout_below="@id/lblUserFullName"
-        android:layout_marginLeft="280dp"
+        android:layout_marginLeft="200dp"
         android:layout_marginTop="-20dp"/>
 
 </RelativeLayout>

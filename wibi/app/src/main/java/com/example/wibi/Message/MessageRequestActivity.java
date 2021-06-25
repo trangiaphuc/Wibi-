@@ -4,17 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wibi.Adapter.UserAdapter;
+import com.example.wibi.Adapter.UserChattedAdapter;
+import com.example.wibi.Models.ChatList;
+import com.example.wibi.Models.LastMessage;
 import com.example.wibi.Models.User;
 import com.example.wibi.R;
-import com.example.wibi.UserInformation.UserInteractionActivity;
+import com.example.wibi.UserInteraction.UserInteractionActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,11 +36,14 @@ public class MessageRequestActivity extends AppCompatActivity {
 
     private ImageView btnReturn;
 
-    private UserAdapter adapter;
+    private UserChattedAdapter adapter;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
-    List<User> userList;
+    List<ChatList> userList;
+    List<User> chattedUserList;
+    List<LastMessage> lastMessageList;
+    DatabaseReference lastMessageRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +56,26 @@ public class MessageRequestActivity extends AppCompatActivity {
         userList = new ArrayList<>();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("ChatList").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                userList.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                    ChatList chatList = dataSnapshot.getValue(ChatList.class);
+                    userList.add(chatList);
+                }
 
-        readUserData();
+                loadChatList();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,39 +94,60 @@ public class MessageRequestActivity extends AppCompatActivity {
         finish();
     }
 
-    private void readUserData() {
-
-
+    private void loadChatList() {
+        chattedUserList = new ArrayList<>();
+        lastMessageList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Users");
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                userList.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
+                chattedUserList.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if(!user.getId().equals(firebaseUser.getUid())){
-                        userList.add(user);
+                    for (ChatList chattedUser: userList){
+                        if (user.getId().equals(chattedUser.getId()))
+                        {
+                            chattedUserList.add(user);
+                        }
                     }
                 }
 
-                adapter = new UserAdapter(MessageRequestActivity.this, userList );
-                recyclerView.setAdapter(adapter);
+                lastMessageRef = FirebaseDatabase.getInstance().getReference("LastMessage")
+                        .child(firebaseUser.getUid());
+
+                lastMessageRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        lastMessageList.clear();
+                        for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                            LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
+                            for (int i=0;i<chattedUserList.size(); i++) {
+                                User user = chattedUserList.get(i);
+                                if(user.getId().equals(lastMessage.getChatWith()))
+                                    lastMessageList.add(lastMessage);
+                            }
+                        }
+
+                        for (LastMessage lastMessage: lastMessageList)
+                        System.out.println("lastMes: "+ lastMessage);
+                        adapter = new UserChattedAdapter(MessageRequestActivity.this, chattedUserList, lastMessageList);
+                        recyclerView.setAdapter(adapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
 
             }
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-                Toast.makeText(MessageRequestActivity.this, "Load Failed!", Toast.LENGTH_LONG).show();
-
             }
         });
-
     }
 
     @Override

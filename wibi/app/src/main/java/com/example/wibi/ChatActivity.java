@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.wibi.Adapter.UserChattedAdapter;
+import com.example.wibi.Adapter.UserOnlineAdapter;
 import com.example.wibi.Models.ChatList;
+import com.example.wibi.Models.FriendList;
 import com.example.wibi.Models.LastMessage;
 import com.example.wibi.Models.User;
 import com.example.wibi.Start.StartActivity;
-import com.example.wibi.UserInformation.UserInteractionActivity;
+import com.example.wibi.UserInteraction.UserInteractionActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,10 +43,11 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DatabaseReference reference;
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView, rcvOnline;
     private UserChattedAdapter adapter;
+    private UserOnlineAdapter onlineAdapter;
     List<ChatList> userList;
-    List<User> chattedUserList;
+    List<User> chattedUserList, userOnlineList;
     List<LastMessage> lastMessageList;
     DatabaseReference lastMessageRef;
     @Override
@@ -55,6 +58,8 @@ public class ChatActivity extends AppCompatActivity {
         profileImg = findViewById(R.id.profile_image);
         lblfullname = findViewById(R.id.username);
         recyclerView = findViewById(R.id.rcvChats);
+        rcvOnline = findViewById(R.id.rcvOnline);
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -95,7 +100,70 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        loadOnlineFriend();
 
+
+    }
+
+
+    private boolean checkExist(String str, List<FriendList> friendLists){
+        for (FriendList friendList: friendLists){
+            if (friendList.getId().trim().equals(str.trim()))
+                return true;
+        }
+        return false;
+    }
+
+    private void loadOnlineFriend() {
+
+        rcvOnline.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        rcvOnline.setLayoutManager(layoutManager);
+
+        userOnlineList = new ArrayList<>();
+        List<FriendList> friendLists = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("FriendList").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    FriendList friendList = dataSnapshot.getValue(FriendList.class);
+                    friendLists.add(friendList);
+                }
+
+                reference = FirebaseDatabase.getInstance().getReference("Users");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                            User user = dataSnapshot.getValue(User.class);
+                            if (!user.getId().equals(firebaseUser.getUid())
+                                    && checkExist(user.getId(), friendLists)
+                                    &&user.getStatus().equals("online"))
+                                userOnlineList.add(user);
+                        }
+
+                        onlineAdapter = new UserOnlineAdapter(ChatActivity.this, userOnlineList);
+                        rcvOnline.setAdapter(onlineAdapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void loadUserInfo() {
@@ -169,7 +237,8 @@ public class ChatActivity extends AppCompatActivity {
                        for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                            LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
                            for (User user: chattedUserList) {
-                               if(user.getId().equals(lastMessage.getChatWith()))
+                               if(user.getId().equals(lastMessage.getChatWith()) && lastMessage.getCount().equals("old")
+                                    ||user.getId().equals(lastMessage.getChatWith())&&lastMessage.getId().equals(firebaseUser.getUid()))
                                {lastMessageList.add(lastMessage); }
                            }
                        }
@@ -183,14 +252,6 @@ public class ChatActivity extends AppCompatActivity {
 
                    }
                });
-
-               if (lastMessageList.size()==0){
-                   LastMessage lastMessage = new LastMessage("","","","","");
-                   for (User user: chattedUserList) {
-                       lastMessageList.add(lastMessage);
-                   }
-               }
-
 
            }
 
@@ -220,76 +281,4 @@ public class ChatActivity extends AppCompatActivity {
         super.onPause();
         setStatus("offline");
     }
-
-//
-//    //load duser who chatted with you
-//    private void loadChattedUser() {
-//        userList = new ArrayList<>();
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        reference =  FirebaseDatabase.getInstance().getReference("Chats");
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                userList.clear();
-//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-//                    Chats chat = dataSnapshot.getValue(Chats.class);
-//
-//                    if (chat.getSender().equals(firebaseUser.getUid()))
-//                        if(!userList.contains(chat.getReceiver()))
-//                            userList.add(chat.getReceiver());
-//                    if (chat.getReceiver().equals(firebaseUser.getUid()))
-//                        if(!userList.contains(chat.getSender()))
-//                            userList.add(chat.getSender());
-//
-//                }
-//
-//                readChats();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-//
-//    //get all chat from chatted user
-//    private void readChats() {
-//        chattedUserList = new ArrayList<>();
-//        reference = FirebaseDatabase.getInstance().getReference("Users");
-//
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                chattedUserList.clear();
-//                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-//                    User user = dataSnapshot.getValue(User.class);
-//
-//                    for (String uid: userList){
-//                        if(user.getId().equals(uid))
-//                            if(chattedUserList.size() != 0) {
-//                                for (int i =0; i<chattedUserList.size(); i++){
-//                                    User chattedUser = chattedUserList.get(i);
-////                                    User chattedUser : chattedUserList
-//                                    if (!(user.getId().equals(chattedUser.getId()))) {
-//                                        // check if user is in chattedUserList
-//                                        chattedUserList.add(user);
-//                                    }
-//                                }
-//                            }
-//                        else
-//                            {chattedUserList.add(user);}
-//                    }
-//                }
-//
-//                adapter = new UserAdapter(ChatActivity.this, chattedUserList);
-//                recyclerView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
 }

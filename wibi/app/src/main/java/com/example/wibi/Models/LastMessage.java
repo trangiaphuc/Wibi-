@@ -6,15 +6,19 @@ public class LastMessage {
     private String isSeen;
     private String chatWith;
     private String imgURL;
+    private String count;
+    private String id;
 
     public LastMessage(){}
 
-    public LastMessage(String message, String dateSend, String isSeen, String receiver, String imgURL) {
+    public LastMessage(String message, String dateSend, String isSeen, String receiver, String imgURL, String count, String id) {
         this.message = message;
         this.dateSend = dateSend;
         this.isSeen = isSeen;
         this.chatWith = receiver;
         this.imgURL = imgURL;
+        this.count = count;
+        this.id = id;
     }
 
     public String getMessage() {
@@ -66,5 +70,21 @@ public class LastMessage {
                 ", chatWith='" + chatWith + '\'' +
                 ", imgURL='" + imgURL + '\'' +
                 '}';
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
