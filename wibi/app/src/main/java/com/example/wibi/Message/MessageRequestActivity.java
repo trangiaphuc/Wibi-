@@ -125,6 +125,8 @@ public class MessageRequestActivity extends AppCompatActivity {
                                 User user = chattedUserList.get(i);
                                 if(user.getId().equals(lastMessage.getChatWith()))
                                     lastMessageList.add(lastMessage);
+                                else
+                                    chattedUserList.remove(user);
                             }
                         }
 

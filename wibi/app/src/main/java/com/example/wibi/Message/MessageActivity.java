@@ -175,54 +175,59 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        lastMessageRef = FirebaseDatabase.getInstance().getReference("LastMessage")
-                .child(firebaseUser.getUid());
 
-        lastMessageRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
-                    if (lastMessage.getChatWith().equals(receiverUserID)){
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isSeen", "true");
-                        dataSnapshot.getRef().updateChildren(hashMap);
+        {
+            lastMessageRef = FirebaseDatabase.getInstance().getReference("LastMessage")
+                    .child(firebaseUser.getUid());
+
+            lastMessageRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
+                        if (lastMessage.getChatWith().equals(receiverUserID) &&
+                                !lastMessage.getId().equals(firebaseUser.getUid())) {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("isSeen", "true");
+                            dataSnapshot.getRef().updateChildren(hashMap);
+                        }
                     }
+
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
 
 
-        lastMessageRef = FirebaseDatabase.getInstance().getReference("LastMessage")
-                .child(receiverUserID);
+            lastMessageRef = FirebaseDatabase.getInstance().getReference("LastMessage")
+                    .child(receiverUserID);
 
-        lastMessageRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+            lastMessageRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
-                    if (lastMessage.getChatWith().equals(firebaseUser.getUid())){
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isSeen", "true");
-                        dataSnapshot.getRef().updateChildren(hashMap);
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        LastMessage lastMessage = dataSnapshot.getValue(LastMessage.class);
+                        if (lastMessage.getChatWith().equals(firebaseUser.getUid())) {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("isSeen", "true");
+                            dataSnapshot.getRef().updateChildren(hashMap);
+                        }
                     }
+
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
+        }
 
     }
 
@@ -308,7 +313,7 @@ public class MessageActivity extends AppCompatActivity {
                     HashMap<String,Object> hashMapLastMes = new HashMap<>();
 
                     hashMapLastMes.put("id", firebaseUser.getUid());
-                    hashMapLastMes.put("chatWith", receiver);
+                    hashMapLastMes.put("chatWith", firebaseUser.getUid());
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", timeSend);
@@ -321,7 +326,7 @@ public class MessageActivity extends AppCompatActivity {
                     HashMap<String,Object> hashMapLastMes = new HashMap<>();
 
                     hashMapLastMes.put("id", firebaseUser.getUid());
-                    hashMapLastMes.put("chatWith", receiver);
+                    hashMapLastMes.put("chatWith", firebaseUser.getUid());
                     hashMapLastMes.put("message", message);
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", timeSend);
@@ -353,6 +358,8 @@ public class MessageActivity extends AppCompatActivity {
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", dateSend);
                     hashMapLastMes.put("isSeen", "false");
+                    hashMapLastMes.put("id", firebaseUser.getUid());
+                    hashMapLastMes.put("count", "old");
 
                     lastMessageReceiver.setValue(hashMapLastMes);
                 }
@@ -364,6 +371,8 @@ public class MessageActivity extends AppCompatActivity {
                     hashMapLastMes.put("imgURL", "null");
                     hashMapLastMes.put("dateSend", dateSend);
                     hashMapLastMes.put("isSeen", "false");
+                    hashMapLastMes.put("id", firebaseUser.getUid());
+                    hashMapLastMes.put("count", "old");
 
                     lastMessageReceiver.updateChildren(hashMapLastMes);
                 }

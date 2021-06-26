@@ -50,4 +50,8 @@
     <string name="lblSearch">Search</string>
     <string name="User">User</string>
     <string name="lblFindFriend">Find Friends</string>
+    <string name="lblYourQR">Your QR Code</string>
+    <string name="lblScan">Scan Your Friend</string>
+    <string name="QRCodeFindFriend">Find Friend by QR Code</string>
+    <string name="lblScanYourFriend">Scan Your Friend</string>
 </resources>

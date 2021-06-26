@@ -137,6 +137,7 @@ public class ChatActivity extends AppCompatActivity {
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        userOnlineList.clear();
                         for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                             User user = dataSnapshot.getValue(User.class);
                             if (!user.getId().equals(firebaseUser.getUid())

@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInteractionActivity extends AppCompatActivity {
 
-    LinearLayout btnProfile, btnSignOut, btnMesReq, infoTab, btnFindFriend;
+    LinearLayout btnProfile, btnSignOut, btnMesReq, infoTab, btnFindFriend, btnQRCode;
 
     ImageView btnReturn;
 
@@ -54,6 +54,7 @@ public class UserInteractionActivity extends AppCompatActivity {
         btnReturn = findViewById(R.id.btnreturn);
         btnFindFriend = findViewById(R.id.btnFriend);
         btnMesReq = findViewById(R.id.btnMessRequest);
+        btnQRCode = findViewById(R.id.QRcode);
         lblUserFullname = findViewById(R.id.lblName);
         avatar = findViewById(R.id.avatarUser);
         infoTab = findViewById(R.id.infotab);
@@ -99,7 +100,20 @@ public class UserInteractionActivity extends AppCompatActivity {
                 doFindFriend();
             }
         });
+        btnQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doQRCode();
+            }
+        });
         checkConnect();
+    }
+
+    private void doQRCode() {
+        Intent intent = new Intent(UserInteractionActivity.this, YourQRCodeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
     }
 
     private void doRedirecttoProfile() {

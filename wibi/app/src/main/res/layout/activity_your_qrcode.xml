@@ -5,21 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FriendandUser.FriendandUserActivity"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:background="@color/white">
+    tools:context=".UserInteraction.YourQRCodeActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/infotab"
         android:gravity="center|left"
         android:background="@drawable/card_border">
 
         <ImageView
-            android:id="@+id/btnReturn"
+            android:id="@+id/btnReturnYourQR"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/return_arrow"
@@ -28,32 +27,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lblFriend"
+            android:text="@string/lblYourQR"
             android:textColor="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:layout_marginLeft="30dp"
             android:textSize="24dp"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="10dp"/>
+
     </LinearLayout>
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabLayout"
-            android:background="@color/white"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/gray"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <androidx.viewpager.widget.ViewPager
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/viewPager"
-        app:layout_behavior = "@string/appbar_scrolling_view_behavior"/>
+        android:id="@+id/imvQRCode"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lblScan"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:id="@+id/btnScanQR"
+        android:layout_margin="20dp"
+        android:textAllCaps="false"/>
+
+
 
 </LinearLayout>

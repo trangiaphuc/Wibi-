@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,9 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wibi">
-        <activity android:name=".FriendandUser.FriendandUserActivity"></activity>
+        <activity android:name=".UserInteraction.QRCodeScannerActivity"></activity>
+        <activity android:name=".UserInteraction.YourQRCodeActivity" />
+        <activity android:name=".FriendandUser.FriendandUserActivity" />
         <activity android:name=".UserInteraction.UserUpdateProfileActivity" />
         <activity android:name=".UserInteraction.UserProfileActivity" />
         <activity android:name=".Message.MessageActivity" />
